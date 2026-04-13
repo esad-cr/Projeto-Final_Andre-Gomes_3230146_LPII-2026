@@ -35,7 +35,7 @@ As páginas `index.html`, `sobre-nos.html`, `projetos.html` e `contactos.html` s
 - **processing.html** → Projetos desenvolvidos em Processing (com canvas)
 
 ## Estrutura do Projeto
-![Estrutura](Imagens/readme/estrutura.jpgreadme)
+![Estrutura](Imagens/readme/estrutura.jpg)
 ## Autor
 - André Gomes
 
