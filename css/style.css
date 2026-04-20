@@ -1,0 +1,63 @@
+::selection { 
+  text-shadow: none;
+  
+  color: #fff;
+  background-color: #00f;
+}
+
+html {
+  font-size: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth; 
+  }
+}
+
+*,
+*::before,
+*::after,
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Font Stack", sans-serif, serif, monospace, cursive, fantasy;
+
+  text-rendering: geometricPrecision;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  height: auto;
+  max-width: 100%;
+  
+  user-select: none;
+}
+
+button {
+  color: inherit;
+}
+
+a, button {
+  touch-action: manipulation;
+}
+
+svg {
+  height: 100%;
+  width: 100%;
+  
+  fill: currentColor;
+  
+  pointer-events: none;
+}
+
+iframe, video {
+  height: 100%;
+  width: 100%
+}
