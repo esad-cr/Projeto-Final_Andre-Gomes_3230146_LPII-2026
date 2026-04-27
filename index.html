@@ -10,6 +10,7 @@
         <meta name="description" content="Fictional company website created for the development of experiences and games, such as board games and/or digital games. This website/company was created for academic purposes for the LPII course" />
         <meta name="keywords" content="ESAD.CR, Licenciatura de Mulimédia, Projecto Final" />
         <link rel="icon" type="image/x-icon" href="Imagens/FAV_ICON/FAV_ICON_DARK-MODE.ico">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css" integrity="sha512-kJlvECunwXftkPwyvHbclArO8wszgBGisiLeuDFwNM8ws+wKIw0sv1os3ClWZOcrEB2eRXULYUsm8OVRGJKwGA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="css/reset.css">
         <link rel="stylesheet" href="css/style.css">
 
@@ -21,32 +22,43 @@
 
     <body>
 
-        <header id="topHeader">
+        <header id="topHeader" class="pageWidth">
         
-            <div id="headerLogo">
-                <a href="index.html" title="Origames - Index" rel="noopener noreferrer"><img src="Imagens/ICONS/FAV_ICON_LIGHT-MODE.png" alt="Logo Origames"></a>
             </div>         
             <nav id="mainMenu">
-                           <ul>
+                <div class="navAction">
+                    <div id="headerLogo">
+                        <a href="index.html" tittle="Projecto Final - Index"
+                        rel="noopener noreferrer"><img src="Imagens/SVG_ICONS/Icon_Light_svg.svg"
+                        alt="Origames Logo"><strong>Origames</strong></a>
+                    </div>
+                    <div class="nav__toggle" id="nav-toggle">
+                        <i class="ri-menu-live nav__burger"></i>
+                        <i class="ri-vlose-line nav_close"></i>
+                    </div>
+            </div>
+
+            <div class="nav__menu" id="navMenu">
+                <ul class="nav__list">
                     <li>
-                        <a href="index.html" title="Main Page" rel="noopener noreferrer">Begining</a>
+                        <a class="nave__link active" href="index.html" title="Main Page" rel="noopener noreferrer">Home page</a>
                     </li>
                     <li>
-                        <a href="about-us.html" title="About us" rel="noopener noreferrer">About us                        </a>
+                        <a class="nave__link" href="about-us.html" title="About us" rel="noopener noreferrer">About us                        </a>
                     </li>
                     <li>
-                        <a href="projects.html" title="Our projects" rel="noopener noreferrer">Projects</a>
+                        <a class="nave__link" href="projects.html" title="Our projects" rel="noopener noreferrer">Projects</a>
                     </li>
                     <li>
-                        <a href="processing.html" title="Works in processing" rel="noopener noreferrer">Processing</a>
+                        <a class="nave__link" href="processing.html" title="Works in processing" rel="noopener noreferrer">Processing</a>
                     </li>
                     <li>
-                        <a href="contacts.html" title="Contacts" rel="noopener noreferrer">Contacts</a>
+                        <a class="nave__link" href="contacts.html" title="Contacts" rel="noopener noreferrer">Contacts</a>
                     </li>
                 </ul>
             </nav>
         </header>
-        <main>
+        <main id="mainContent" class="pageWidth">
             <h1>Index Page</h1>
             <h2>Main Article</h2>
         </main>
