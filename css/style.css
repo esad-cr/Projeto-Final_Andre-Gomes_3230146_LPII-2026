@@ -25,8 +25,9 @@ html {
 }
 
 body {
-  font-family: "Font Stack", sans-serif, serif, monospace, cursive, fantasy;
-
+  font-size: 36px;
+  font-family: "Orbitron SemiBold", Eras Bolt ITC, sans-serif;
+  letter-spacing: 0.15rem;
   text-rendering: geometricPrecision;
 
   -webkit-font-smoothing: antialiased;
@@ -183,8 +184,10 @@ a:hover, a:active, a.active{
   padding: 0 16px;
 }
 
-.nav__Burger,
-.navClose {
+/******burger menu*******/
+
+.nav__burger,
+.nav__close {
   color: var(--button-collor);
 }
 
@@ -195,3 +198,30 @@ a:hover, a:active, a.active{
   align-items: center;
 }
 
+#headerLogo {
+  display: inline-flex;
+  align-items: center;
+  column-gap: .25rem;
+}
+
+#headerLogo img {
+  width: 3rem;
+}
+
+.nav__toggle {
+  position: relative;
+  width: 32px;
+  height: 32px;
+}
+
+.nav__burger,
+.nav__close {
+  position: absolute;
+  width: max-content;
+  height: max-content;
+  inset: 0;
+  margin: auto;
+  font-size: 2rem;
+  cursor: pointer;
+  transition: opacity .1s, transform .4s;
+}
