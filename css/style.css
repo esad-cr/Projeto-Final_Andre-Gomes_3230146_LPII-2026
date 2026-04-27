@@ -63,7 +63,7 @@ iframe, video {
   width: 100%
 }
 
-
+/********Tamanhos e cores**********/
 
 h1{
     font-size: 36px;
@@ -132,7 +132,7 @@ a:hover, a:active, a.active{
 :root {
   --header-height: 60px;
 
-/********cores***********/
+/********Estilos cores***********/
 
   --black-color:#000000;
   --black-color-light:#141414;
