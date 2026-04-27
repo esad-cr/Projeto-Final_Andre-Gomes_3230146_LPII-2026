@@ -182,3 +182,16 @@ a:hover, a:active, a.active{
   margin: 0 auto;
   padding: 0 16px;
 }
+
+.nav__Burger,
+.navClose {
+  color: var(--button-collor);
+}
+
+.navAction {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
