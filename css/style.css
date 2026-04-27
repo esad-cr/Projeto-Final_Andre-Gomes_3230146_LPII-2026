@@ -25,7 +25,7 @@ html {
 }
 
 body {
-  font-size: 36px;
+  font-size: 16px;
   font-family: "Orbitron SemiBold", Eras Bolt ITC, sans-serif;
   letter-spacing: 0.15rem;
   text-rendering: geometricPrecision;
@@ -33,6 +33,12 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--white-color-darker);
+}
+
+header {
+  font-size: 36px;
+  font-family: "Orbitron SemiBold", Eras Bolt ITC, sans-serif;
+  letter-spacing: 0.15rem;
 }
 
 img {
@@ -101,10 +107,23 @@ p{
     color: var(--body-color);
 }
 
+small {
+  font-size: 0.8rem;
+}
+
+strong {
+  font-weight: ;
+}
+
+ul {
+  list-style: none;
+}
+
 a{
     font-size: 12px;
     font-family: "Exo Italic", Roboto Flex Italic, sans-serif;
     color: var(--links-color);
+    text-decoration: none;
 }
 a:hover, a:active, a.active{
   color: var(--clicked-link-collor);
@@ -146,12 +165,22 @@ a:hover, a:active, a.active{
   --Subtitle-color:#241404;
   --links-color:#281f18;
 
+  --light-color:#ff9700;
+
   --button-collor:#ff9700;
 
   --clicked-link-collor:#685749;
   --hover-button-collor:#ffb452;
 
 }
+
+/*******pesos de letras********/
+:root {
+  --font-regular: 400;
+  --font-semi-bold: 600;
+}
+
+
 /********Z tool***********/
 :root {
   --z-tooltip: 10;
@@ -172,7 +201,7 @@ a:hover, a:active, a.active{
   width: 100%;
   max-width: 100%;
   background-color: var(--white-color-dark);
-  box-shadow: 0 2px 16px var(--black-color);
+  box-shadow: 0 2px 16px var(--light-color);
   z-index: var(--z-fixed);
 }
 
@@ -224,4 +253,47 @@ a:hover, a:active, a.active{
   font-size: 2rem;
   cursor: pointer;
   transition: opacity .1s, transform .4s;
+}
+
+.nav__close {
+  opacity: 0;
+}
+
+  @media screen and (max-width: 992px) {
+    .nav__menu {
+      position: absolute;
+      left: 0;
+      top: 3.5rem;
+      width: 100%;
+      height: calc(100vh - 3.5rem);
+      overflow: auto;
+      pointer-events: none;
+      opacity: 0;
+      transition: top .4s, opacity .3s;
+
+    }
+
+  .nav__menu::-webkit-scrollbar {
+    width: 0;
+  }
+
+  .nav__list {
+    background-color: var(--white-color-dark);
+    padding-top: 1rem;
+  }
+}
+
+.nav__link {
+  color: var(--body-color);
+  background-color: var(--white-color-dark);
+  font-weight: var(--font-semi-bold);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color .3s ;
+}
+
+.nav__link:hover {
+  color: var(--hover-button-collor);
 }
