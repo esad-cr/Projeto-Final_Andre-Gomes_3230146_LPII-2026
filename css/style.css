@@ -156,3 +156,29 @@ a:hover, a:active, a.active{
   --z-tooltip: 10;
   --z-fixed: 100;
 }
+
+.pageWidth{
+  width: 100%;
+  max-width: 1680px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+#topHeader {
+  position:fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  max-width: 100%;
+  background-color: var(--white-color-dark);
+  box-shadow: 0 2px 16px var(--black-color);
+  z-index: var(--z-fixed);
+}
+
+#mainMenu {
+  height: var(--header-height);
+  width: 100%;
+  max-width: 1680px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
