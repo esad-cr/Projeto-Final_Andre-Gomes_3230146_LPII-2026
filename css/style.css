@@ -115,3 +115,20 @@ a{
         font-size: 1rem;
     }
 }
+
+:root {
+  --header-height: 60px;
+
+  --black-color:hsl(0, 0%, 0%);
+  --black-color-light:hsl(0, 0%, 7%);
+  --black-color-lightest:hsl(0, 0%, 11%);
+  --white-color:hsl(0, 0%, 100%);
+  --white-color-dark:hsl(0, 0%, 93%);
+  --white-color-darker:hsl(0, 0%, 85%);
+  --body-color:hsl(29, 94%, 6%);
+  --Title-color:hsl(29, 94%, 13%);
+  --Subtitle-color:hsl(32, 90%, 21%);
+  --links-color:hsl(25, 39%, 15%);
+
+  --clicked-link-collor:hsl(26, 39%, 27%);
+}
