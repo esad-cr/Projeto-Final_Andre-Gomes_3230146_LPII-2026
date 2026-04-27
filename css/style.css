@@ -31,6 +31,7 @@ body {
 
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: var(--white-color-darker);
 }
 
 img {
@@ -87,16 +88,28 @@ h4, h5, h6{
     font-family: "Anta Regular", Cascadia Mono Regular, sans-serif;
     letter-spacing: 0.03rem;
 }
-
+h1{
+  color: var(--Title-color);
+}
+h2, h3, h4, h5, h6{
+  color: var(--Subtitle-color);
+}
 p{
     font-size: 12px;
     font-family: "Exo Regular", Roboto Flex Regular, sans-serif;
+    color: var(--body-color);
 }
 
 a{
     font-size: 12px;
     font-family: "Exo Italic", Roboto Flex Italic, sans-serif;
+    color: var(--links-color);
 }
+a:hover, a:active, a.active{
+  color: var(--clicked-link-collor);
+}
+
+/*********Ajustes Desktop**************/
 
 @media (min-width: 992px) {
     h1{
@@ -119,16 +132,27 @@ a{
 :root {
   --header-height: 60px;
 
-  --black-color:hsl(0, 0%, 0%);
-  --black-color-light:hsl(0, 0%, 7%);
-  --black-color-lightest:hsl(0, 0%, 11%);
-  --white-color:hsl(0, 0%, 100%);
-  --white-color-dark:hsl(0, 0%, 93%);
-  --white-color-darker:hsl(0, 0%, 85%);
-  --body-color:hsl(29, 94%, 6%);
-  --Title-color:hsl(29, 94%, 13%);
-  --Subtitle-color:hsl(32, 90%, 21%);
-  --links-color:hsl(25, 39%, 15%);
+/********cores***********/
 
-  --clicked-link-collor:hsl(26, 39%, 27%);
+  --black-color:#000000;
+  --black-color-light:#141414;
+  --black-color-lightest:#1e1e1e;
+  --white-color:#ffffff;
+  --white-color-dark:#efefef;
+  --white-color-darker:#dbdbdb;
+  --body-color:#382105;
+  --Title-color:#110901;
+  --Subtitle-color:#241404;
+  --links-color:#281f18;
+
+  --button-collor:#ff9700;
+
+  --clicked-link-collor:#685749;
+  --hover-button-collor:#ffb452;
+
+}
+/********Z tool***********/
+:root {
+  --z-tooltip: 10;
+  --z-fixed: 100;
 }
