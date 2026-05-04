@@ -169,7 +169,7 @@ a:hover, a:active, a.active{
 
   --button-collor:#ff9700;
 
-  --clicked-link-collor:#685749;
+  --clicked-link-collor:#ff9700;
   --hover-button-collor:#ffb452;
 
 }
@@ -269,7 +269,7 @@ a:hover, a:active, a.active{
       overflow: auto;
       pointer-events: none;
       opacity: 0;
-      transition: top .4s, opacity .3s;
+      transition: height .4s, opacity .3s;
 
     }
 
@@ -296,4 +296,31 @@ a:hover, a:active, a.active{
 
 .nav__link:hover {
   color: var(--hover-button-collor);
+}
+
+@media screen and (min-width: 992px) {
+  #topHeader {
+    margin-inline: auto;
+  }
+
+  #mainMenu {
+    height: calc(var(--header-height) + 2rem);
+    display: flex;
+    justify-content: space-between;
+  }
+  .nav__toggle {
+    display: none;
+  }
+  .nav__list {
+    height: 100%;
+    display: flex;
+    column-gap: 3rem;
+  }
+  .nav__link {
+    height: 100%;
+    padding: 0;
+    justify-content: initial;
+    column-gap: .25rem;
+  }
+  
 }
