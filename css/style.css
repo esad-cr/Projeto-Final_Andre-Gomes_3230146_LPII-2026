@@ -298,6 +298,22 @@ a:hover, a:active, a.active{
   color: var(--hover-button-collor);
 }
 
+.show-menu {
+  opacity: 1;
+  top: 3.5rem;
+  pointer-events: initial;
+}
+
+.show-icon .nav__burger {
+  opacity: 0;
+  transform: rotate(90deg);
+}
+
+.show-icon .nav__close {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
 @media screen and (min-width: 992px) {
   #topHeader {
     margin-inline: auto;
@@ -322,5 +338,4 @@ a:hover, a:active, a.active{
     justify-content: initial;
     column-gap: .25rem;
   }
-  
-}
+  }
