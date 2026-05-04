@@ -112,7 +112,11 @@ small {
 }
 
 strong {
-  font-weight: ;
+  font-weight:700px ;
+}
+
+medium {
+  font-weight: 500px;
 }
 
 ul {
@@ -127,6 +131,20 @@ a{
 }
 a:hover, a:active, a.active{
   color: var(--clicked-link-collor);
+}
+
+/********Espaçadores***********/
+
+.space-S{
+  height: 30px;
+}
+
+.space-M{
+  height: 90px;
+}
+
+.space-XL {
+  height: 120px;
 }
 
 /*********Ajustes Desktop**************/
@@ -338,4 +356,23 @@ a:hover, a:active, a.active{
     justify-content: initial;
     column-gap: .25rem;
   }
+
+  @media screen and (min-width: 992px) {
+  }
+  }
+
+  #mainContent {
+    margin-top: var(--header-height)!important;
+  }
+
+   @media screen {
+    #mainContent {
+      margin-top:4.5rem !important;
+    }
+   }    
+
+  @media screen and (min-width: 992px) {
+    #mainContent {
+      margin-top:7rem !important;
+    }    
   }
