@@ -151,16 +151,16 @@ a:hover, a:active, a.active{
 
 @media (min-width: 992px) {
     h1{
-        font-size: 6rem;
-    }
-    h2{
         font-size: 4rem;
     }
+    h2{
+        font-size: 2.5rem;
+    }
     h3{
-        font-size: 3rem;
+        font-size: 2rem;
     }
     h4, h5, h6{
-        font-size: 2rem;
+        font-size: 1rem;
     }
     p, a{
         font-size: 1rem;
@@ -404,6 +404,7 @@ a:hover, a:active, a.active{
   flex-direction: column;
   align-items: center;
   width: 40%;
+
 }
 .bg-primary-color {
   background-color: var(--card-member-collor);
@@ -426,6 +427,7 @@ a:hover, a:active, a.active{
 }
 .container article > img{
   width: 12rem;
+  border-radius: 8rem;
 }
 
 .resize:hover{
