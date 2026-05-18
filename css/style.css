@@ -190,6 +190,9 @@ a:hover, a:active, a.active{
   --clicked-link-collor:#ff9700;
   --hover-button-collor:#ffb452;
 
+  --card-member-collor: #7c4f0d;
+  --card-member-hover-collor: #442d0e;
+
 }
 
 /*******pesos de letras********/
@@ -376,3 +379,98 @@ a:hover, a:active, a.active{
       margin-top:7rem !important;
     }    
   }
+
+  /*********************************Cards******************************/
+
+.container {
+  --gap: 50px;
+  padding: 2rem;
+}
+
+.flex{
+  display: flex;
+  gap: var(--gap, 1rem);
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.box_shadow {
+  box-shadow: 1px 1px 15px 1px #000000;
+}
+.border_radius{
+  border-radius: 8px;
+}
+.flex-column {
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+}
+.bg-primary-color {
+  background-color: var(--card-member-collor);
+}
+
+.container article:first-child{
+  border-top-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.container article:last-child{
+  border-top-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.container article{
+  --gap: 2em;
+  line-height: 1.5;
+  padding: 3em;
+}
+.container article > img{
+  width: 12rem;
+}
+
+.resize:hover{
+  transition: transform 200ms ease-in-out;
+  transform: scale(1.1);
+  background-color: var(--card-member-hover-collor);
+}
+
+.learn-more-button{
+  border: none;
+  border-radius: 40px;
+  letter-spacing: 1px;
+  padding-block: 0.79em;
+  padding-inline: 2.3em;
+  margin: auto;
+  margin-top: 3em;
+  transition: backgound-color 200ms ease-in-out;
+  background-color: var(--button-collor);
+  color: var(--white-color);
+}
+
+.learn-more-button:hover{
+  background-color: var(--hover-button-collor);
+  color: var(--black-color-light);
+  cursor: pointer;
+}
+
+.white_text{
+  color: var(--white-color);
+}
+
+@media screen and (max-width: 992px) {
+  .container .flex{
+    flex-direction: column;
+    max-width: 100%;
+    min-width: 90%;
+  }
+  .container article:first-child {
+    border-radius: 0;
+    border-top-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+   .container article:last-child {
+    border-radius: 0;
+    border-top-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+}
