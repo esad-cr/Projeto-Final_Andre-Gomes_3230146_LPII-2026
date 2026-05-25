@@ -465,8 +465,8 @@ a:hover, a:active, a.active{
   padding: 3em;
 }
 .container article > img{
-  width: 12rem !important;
-  border-radius: 8rem !important;
+  width: 12rem;
+  border-radius: 8rem;
 }
 
 .hexagon .Card_Image,
@@ -514,6 +514,11 @@ a:hover, a:active, a.active{
   height: 3rem !important;
   color: var(--light-color);
   filter: brightness(0) invert(1);
+}
+
+.Icons_card > img{
+  width: 3rem;
+  height: 3rem;
 }
 
 .Icons_card:hover{
