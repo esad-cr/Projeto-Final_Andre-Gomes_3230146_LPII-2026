@@ -18,6 +18,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Anta&family=Exo:ital,wght@0,100..900;1,100..900&family=Orbitron:wght@600&display=swap" rel="stylesheet">
     </head>
     <body>
+        <svg width="0" height="0" style="position:absolute; overflow:hidden;">
+            <defs>
+            <filter id="round">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+                <feColorMatrix in="blur" mode="matrix"
+                values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+                result="goo"/>
+                <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+            </filter>
+            </defs>
+        </svg>
         <header id="topHeader" class="pageWidth">    
             <nav id="mainMenu">
                 <div class="navAction">
@@ -54,7 +65,7 @@
             <section id="cards-2" class="container">
                 <h2 class="text_center">Our Members</h2>
                 <div class="flex">
-                    <article class="flex flex-column bg-primary-color border_radius box_shadow resize">
+                    <article class="flex flex-column bg-primary-color hexagon resize">
                         <img class="Card_Image" src="Imagens/Members/ImagemTipoPasse_AndréGomesSmall.jpg" alt="André Gomes"/>
                         <h3 class="white_text">André Gomes</h3>
                         <p class="white_text">
@@ -62,7 +73,7 @@
                              </p>
                         <button class="learn-more-button"><strong>About Him</strong></button>
                     </article>
-                    <article class="flex flex-column bg-primary-color border_radius box_shadow resize">
+                    <article class="flex flex-column bg-primary-color hexagon resize">
                         <img class="Card_Image" src="Imagens/Members/IMG_20230623_183256_701 (2).jpg" alt="André Gomes"/>
                         <h3 class="white_text">André Gomes</h3>
                         <p class="white_text">

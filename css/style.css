@@ -392,13 +392,7 @@ a:hover, a:active, a.active{
   gap: var(--gap, 1rem);
   margin-top: 20px;
   justify-content: center;
-}
-
-.box_shadow {
-  box-shadow: 1px 1px 15px 1px #000000;
-}
-.border_radius{
-  border-radius: 8px;
+  filter: url(#round)
 }
 .flex-column {
   flex-direction: column;
@@ -410,14 +404,19 @@ a:hover, a:active, a.active{
   background-color: var(--card-member-collor);
 }
 
+.hexagon {
+  height: 550px;
+  aspect-ratio: 1/cos(30deg);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: var(--card-member-collor);
+}
+
 .container article:first-child{
-  border-top-left-radius: 8px;
-  border-bottom-right-radius: 8px;
+  border-radius: 8px;
 }
 
 .container article:last-child{
-  border-top-left-radius: 8px;
-  border-bottom-right-radius: 8px;
+  border-radius: 8px;
 }
 
 .container article{
@@ -447,6 +446,8 @@ a:hover, a:active, a.active{
   transition: backgound-color 200ms ease-in-out;
   background-color: var(--button-collor);
   color: var(--white-color);
+  font-size: medium;
+  font-weight: bold;
 }
 
 .learn-more-button:hover{
@@ -463,16 +464,12 @@ a:hover, a:active, a.active{
   .container .flex{
     flex-direction: column;
     max-width: 100%;
-    min-width: 90%;
+    min-width: 100%;
   }
   .container article:first-child {
-    border-radius: 0;
-    border-top-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-radius: 8px;
   }
    .container article:last-child {
-    border-radius: 0;
-    border-top-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+    border-radius: 8px;
   }
 }
