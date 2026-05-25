@@ -130,6 +130,11 @@ a{
     text-decoration: none;
 }
 a:hover, a:active, a.active{
+  color: var(--hover-button-collor);
+  cursor: pointer;
+}
+
+.link{
   color: var(--clicked-link-collor);
 }
 
@@ -165,6 +170,14 @@ a:hover, a:active, a.active{
     p, a{
         font-size: 1rem;
     }
+}
+
+.Espaçamento_h2{
+  margin-top: 3rem;
+}
+
+.Espaçamento_p{
+  margin-top: 1rem;
 }
 
 :root {
@@ -379,6 +392,35 @@ a:hover, a:active, a.active{
       margin-top:7rem !important;
     }    
   }
+ /*********************************Divisória******************************/
+
+ .Divisoria_Texto_Imagem {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: center;
+  padding: 2rem;
+}
+
+.Divisoria_Imagem {
+  flex: 1;
+}
+
+.Divisoria_Imagem > img {
+  width: 110%;
+  height: auto;
+  border-radius: 12px;
+}
+
+.Divisoria_Texto {
+  flex: 1;
+}
+
+@media screen and (max-width: 992px) {
+  .about-wrapper {
+    flex-direction: column;
+  }
+}
 
   /*********************************Cards******************************/
 
@@ -423,8 +465,16 @@ a:hover, a:active, a.active{
   padding: 3em;
 }
 .container article > img{
-  width: 12rem;
-  border-radius: 8rem;
+  width: 12rem !important;
+  border-radius: 8rem !important;
+}
+
+.hexagon .Card_Image,
+.hexagon img {
+  width: 12rem !important;
+  height: 12rem !important;
+  border-radius: 8rem !important;
+  object-fit: cover;
 }
 
 .resize:hover{
@@ -460,8 +510,8 @@ a:hover, a:active, a.active{
 
 .Icons_card{
   margin-top: 1rem;
-  width: 3rem;              
-  height: 3rem;
+  width: 3rem !important;              
+  height: 3rem !important;
   color: var(--light-color);
   filter: brightness(0) invert(1);
 }
