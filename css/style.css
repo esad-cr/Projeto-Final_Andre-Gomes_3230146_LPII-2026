@@ -565,11 +565,5 @@ a:hover, a:active, a.active{
   .container article:first-child {
     border-radius: 12px;
   }
-
-  .hexagon .Card_Image {
-  width: 6rem !important;
-  height: 6rem !important;
-  border-radius: 10rem !important;
-  object-fit: cover;
-}
+  
 }
