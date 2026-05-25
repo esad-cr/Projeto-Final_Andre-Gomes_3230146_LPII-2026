@@ -420,6 +420,20 @@ a:hover, a:active, a.active{
   .Divisoria_Texto_Imagem {
     flex-direction: column;
   }
+
+  .Divisoria_Imagem {
+    width: 100%;        
+    order: -1;          
+  }
+
+  .Divisoria_Imagem > img {
+    width: 100%;
+    height: auto;
+  }
+
+  .Divisoria_Texto {
+    width: 100%;
+  }
 }
 
   /*********************************Cards******************************/
@@ -551,4 +565,11 @@ a:hover, a:active, a.active{
   .container article:first-child {
     border-radius: 12px;
   }
+
+  .hexagon .Card_Image {
+  width: 6rem !important;
+  height: 6rem !important;
+  border-radius: 10rem !important;
+  object-fit: cover;
+}
 }
