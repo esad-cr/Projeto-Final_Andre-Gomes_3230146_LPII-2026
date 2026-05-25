@@ -387,18 +387,19 @@ a:hover, a:active, a.active{
   padding: 2rem;
 }
 
-.flex{
+.flex {
   display: flex;
-  gap: var(--gap, 1rem);
+  flex-direction: row;       
+  align-items: flex-start;  
+  gap: 10px;                 
   margin-top: 20px;
   justify-content: center;
-  filter: url(#round)
+  filter: url(#round);
 }
 .flex-column {
   flex-direction: column;
   align-items: center;
-  width: 40%;
-
+  width: auto;            
 }
 .bg-primary-color {
   background-color: var(--card-member-collor);
@@ -411,12 +412,9 @@ a:hover, a:active, a.active{
   background: var(--card-member-collor);
 }
 
-.container article:first-child{
-  border-radius: 8px;
-}
-
-.container article:last-child{
-  border-radius: 8px;
+.container article:last-child {
+  margin-top: 310px;
+  margin-left: -140px;
 }
 
 .container article{
@@ -461,15 +459,28 @@ a:hover, a:active, a.active{
 }
 
 @media screen and (max-width: 992px) {
-  .container .flex{
+  .container .flex {
     flex-direction: column;
     max-width: 100%;
-    min-width: 100%;
+    min-width: 80%;
+    align-items: center;
   }
+  .hexagon {
+    clip-path: none;        
+    aspect-ratio: auto;       
+    height: auto;            
+    border-radius: 8px;      
+    width: 60%;             
+  }
+  .container article:last-child {
+    margin-top: 30px;
+    margin-left: 0;
+  }
+
   .container article:first-child {
-    border-radius: 8px;
+    border-radius: 12px;
   }
-   .container article:last-child {
-    border-radius: 8px;
-  }
+}
+.text_center {
+  text-align: center;
 }
