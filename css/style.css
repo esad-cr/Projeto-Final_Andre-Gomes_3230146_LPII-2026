@@ -576,12 +576,20 @@ a:hover, a:active, a.active{
 /********************Index***********************/
 
 .ScreenSize {
-  height: 90vh;
-    background-image: url(../Imagens/Imagens_Estrutura/BandeiraBallWeekOne.jpg) ;
-    background-repeat: no-repeat;
-    background-size: 100%;
-    background-position: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  height: 110vh;
+  background-image: url(../Imagens/Imagens_Estrutura/banners/Index_FirstLook.jpg) ;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center bottom;
+  margin-top: -100px;
+  width: 120%;
+  margin-left: -160px;
+}
+
+@media screen and (max-width: 992px) {
+  .ScreenSize {
+    margin-top: -650px;
+    margin-left: -20px;
+    width: 110%;
+  }
 }
