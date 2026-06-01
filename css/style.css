@@ -575,7 +575,13 @@ a:hover, a:active, a.active{
 
 /********************Index***********************/
 
-.ScreenSize > img{
-  width: fit-content;
-  
+.ScreenSize {
+  height: 90vh;
+    background-image: url(../Imagens/Imagens_Estrutura/BandeiraBallWeekOne.jpg) ;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
