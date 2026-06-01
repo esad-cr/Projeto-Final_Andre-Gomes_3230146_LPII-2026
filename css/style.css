@@ -572,3 +572,10 @@ a:hover, a:active, a.active{
   text-align: left;
   margin-bottom: 3rem;
 }
+
+/********************Index***********************/
+
+.ScreenSize > img{
+  width: fit-content;
+  
+}
