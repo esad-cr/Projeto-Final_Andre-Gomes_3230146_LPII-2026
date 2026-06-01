@@ -68,13 +68,23 @@ const PAD = 14;
 
 // ── SETUP & DRAW ─────────────────────────────────────────────────────────────
 function setup() {
-  let canvas = createCanvas(720, 600);
+  let w = min(window.innerWidth - 4, 720);
+  let h = w < 600 ? 980 : 600;
+  let canvas = createCanvas(w, h);
   canvas.parent('game-container');
   canvas.style('display', 'block');
-  canvas.style('margin', '20px auto');
+  canvas.style('margin', '10px auto');
   textFont('sans-serif');
   initGame();
 }
+
+function windowResized() {
+  let w = min(window.innerWidth - 4, 720);
+  let h = w < 600 ? 980 : 600;
+  resizeCanvas(w, h);
+}
+
+function isMobile() { return width < 600; } // triggers at 600px, designed for 442px
 
 function draw() {
   background(219, 219, 219);
@@ -175,6 +185,7 @@ function checkHandLimit(who) {
 
 // ── DRAW GAME ────────────────────────────────────────────────────────────────
 function drawGame() {
+  if (isMobile()) { drawGameMobile(); return; }
   G._btns = [];
 
   // Fixed Y positions
@@ -333,6 +344,192 @@ function drawGame() {
   }
 }
 
+
+
+
+// ── MOBILE LAYOUT — designed for 442px ──────────────────────────────────────
+function drawGameMobile() {
+  G._btns = [];
+  let pad = 6;
+  let cw = width - pad*2;
+  // Card sizes tuned for 442px
+  let mCW=34, mCH=48, mCR=4;
+  let mMCW=22, mMCH=28;
+  let y = 0;
+
+  // ── CPU hand ──
+  // How many cards fit per row at mCW+3 spacing
+  let cpuPerRow = max(1, floor(cw / (mCW+3)));
+  let cpuRows = max(1, ceil(G.hands[0].length / cpuPerRow));
+  let cpuHandH = cpuRows * (mCH+4) + 16;
+  drawZone(pad, y, cw, cpuHandH, 'CPU — mão: '+G.hands[0].length+' | passado: '+G.pasts[0].length+'/13');
+  G.hands[0].forEach((c,i) => {
+    let row=floor(i/cpuPerRow), col2=i%cpuPerRow;
+    drawCardBack(pad+6+col2*(mCW+3), y+14+row*(mCH+4), c.type==='god');
+  });
+  y += cpuHandH + 4;
+
+  // ── CPU past ──
+  let cpuPastH = mMCH + 20;
+  drawZone(pad, y, cw, cpuPastH, 'Passado CPU');
+  G.pasts[0].slice(-14).forEach((c,i) => {
+    let col=getSuitCol(c);
+    fill(col[0],col[1],col[2],50); stroke(col[0],col[1],col[2]); strokeWeight(1);
+    rect(pad+6+i*(mMCW+2), y+16, mMCW, mMCH, 3);
+    fill(col[0]*0.5,col[1]*0.5,col[2]*0.5); noStroke(); textSize(8); textAlign(CENTER); textStyle(BOLD);
+    text(c.type==='god'?'✦':vLabel(c.value), pad+6+i*(mMCW+2)+mMCW/2, y+16+mMCH/2+3);
+    textStyle(NORMAL);
+  });
+  y += cpuPastH + 4;
+
+  // ── Futuro + Presente ──
+  let futW = 90;
+  let presW = cw - futW - 4;
+  let midH = 120;
+
+  drawZone(pad, y, futW, midH, 'Futuro');
+  drawCardBack(pad+futW/2-mCW/2, y+16, false);
+  fill(60,40,10); noStroke(); textSize(9); textAlign(CENTER);
+  text(G.deck.length+' cartas', pad+futW/2, y+midH-8);
+
+  let px = pad+futW+4;
+  drawZone(px, y, presW, midH, '');
+  fill(255,255,255,220); noStroke(); rect(px+4,y+4,68,14,3);
+  fill(60,40,10); textSize(9); textAlign(LEFT); textStyle(NORMAL);
+  text('PRESENTE', px+8, y+14);
+
+  let pHalf = floor(midH/2);
+  fill(100); noStroke(); textSize(9); textAlign(CENTER);
+  text('CPU', px+presW/2, y+26);
+  if(G.presents[0].length===0){
+    fill(180); textSize(10); text('—', px+presW/2, y+pHalf-4);
+  } else {
+    G.presents[0].slice(-4).forEach((c,i)=>{
+      let col=getSuitCol(c);
+      fill(col[0],col[1],col[2],50); stroke(col[0],col[1],col[2]); strokeWeight(i===G.presents[0].slice(-4).length-1?2:1);
+      rect(px+4+i*(mMCW+2),y+28,mMCW,mMCH,3);
+      fill(col[0]*0.5,col[1]*0.5,col[2]*0.5); noStroke(); textSize(8); textAlign(CENTER); textStyle(BOLD);
+      text(c.type==='god'?'✦':vLabel(c.value),px+4+i*(mMCW+2)+mMCW/2,y+28+mMCH/2+3);
+      textStyle(NORMAL);
+    });
+  }
+  stroke(200); strokeWeight(1); line(px+4,y+pHalf,px+presW-4,y+pHalf);
+  fill(100); noStroke(); textSize(9); textAlign(CENTER);
+  text('Jogador', px+presW/2, y+pHalf+14);
+  if(G.presents[1].length===0){
+    fill(180); textSize(10); text('—', px+presW/2, y+pHalf+pHalf-4);
+  } else {
+    G.presents[1].slice(-4).forEach((c,i)=>{
+      let col=getSuitCol(c);
+      fill(col[0],col[1],col[2],50); stroke(col[0],col[1],col[2]); strokeWeight(i===G.presents[1].slice(-4).length-1?2:1);
+      rect(px+4+i*(mMCW+2),y+pHalf+16,mMCW,mMCH,3);
+      fill(col[0]*0.5,col[1]*0.5,col[2]*0.5); noStroke(); textSize(8); textAlign(CENTER); textStyle(BOLD);
+      text(c.type==='god'?'✦':vLabel(c.value),px+4+i*(mMCW+2)+mMCW/2,y+pHalf+16+mMCH/2+3);
+      textStyle(NORMAL);
+    });
+  }
+  y += midH + 4;
+
+  // ── Player past ──
+  let ppH = mMCH + 20;
+  drawZone(pad, y, cw, ppH, 'Passado Jogador');
+  G.pasts[1].slice(-14).forEach((c,i) => {
+    let col=getSuitCol(c);
+    fill(col[0],col[1],col[2],50); stroke(col[0],col[1],col[2]); strokeWeight(1);
+    rect(pad+6+i*(mMCW+2), y+16, mMCW, mMCH, 3);
+    fill(col[0]*0.5,col[1]*0.5,col[2]*0.5); noStroke(); textSize(8); textAlign(CENTER); textStyle(BOLD);
+    text(c.type==='god'?'✦':vLabel(c.value), pad+6+i*(mMCW+2)+mMCW/2, y+16+mMCH/2+3);
+    textStyle(NORMAL);
+  });
+  y += ppH + 4;
+
+  // ── Status bar ──
+  let sbH = 52;
+  drawZone(pad, y, cw, sbH, '');
+  fill(17,9,1); noStroke(); textSize(10); textAlign(LEFT);
+  let topStr='Ronda nova'+(G.reverse?' ↓':'')+(G.presentLocked?' [ac.]':'');
+  if(G.globalTopIsGod) topStr='✦ Só God Card!';
+  else if(G.globalTop) topStr='Topo: '+G.globalTop+(G.reverse?' ↓':'');
+  text(topStr, pad+6, y+16);
+  textAlign(RIGHT);
+  text('CPU:'+G.pasts[0].length+'  Tu:'+G.pasts[1].length, pad+cw-6, y+16);
+  fill(G.turn===1?color(255,151,0):color(255,180,82)); noStroke();
+  rect(pad+4, y+22, cw-8, 24, 4);
+  fill(17,9,1); textSize(10); textAlign(CENTER);
+  text(G.turn===1?'Teu turno'+(G.extraPlays>0?' (+'+G.extraPlays+')':''):'CPU a jogar...', pad+cw/2, y+38);
+  y += sbH + 4;
+
+  // ── Buttons ──
+  let canAct=G.turn===1&&!G.busy&&!G.gameover&&!modal;
+  let bw=(cw-4)/2;
+  drawButton(pad,y,bw,30,'Jogar',canAct&&G.selected!==-1,()=>playCards());
+  drawButton(pad+bw+4,y,bw,30,'Comprar',canAct&&G.deck.length>0,()=>buyCard());
+  y += 38;
+
+  // ── Player hand ──
+  let perRow = max(1, floor(cw / (mCW+4)));
+  let rows = max(1, ceil(G.hands[1].length/perRow));
+  let handH = rows*(mCH+4)+18;
+  _handY = y;
+  drawZone(pad, y, cw, handH, 'A tua mão — '+G.hands[1].length+' cartas | passado: '+G.pasts[1].length+'/13');
+  G.hands[1].forEach((c,i) => {
+    let row=floor(i/perRow), col2=i%perRow;
+    let x=pad+6+col2*(mCW+4);
+    let baseY=y+14+row*(mCH+4);
+    let sel=G.selected===i;
+    let ok=canPlay(c);
+    let hy=sel?baseY-6:baseY;
+    let col=getSuitCol(c);
+    let bgC=sel?color(col[0],col[1],col[2],220):color(col[0],col[1],col[2],40);
+    if(!ok){fill(200,200,200,80);stroke(180);strokeWeight(1.5);}
+    else{fill(bgC);stroke(color(col[0],col[1],col[2]));strokeWeight(sel?2.5:2);}
+    rect(x,hy,mCW,mCH,mCR);
+    fill(ok?color(col[0]*0.6,col[1]*0.6,col[2]*0.6):150);
+    noStroke(); textAlign(CENTER); textStyle(BOLD);
+    textSize(12); text(c.type==='god'?'✦':vLabel(c.value),x+mCW/2,hy+mCH/2-2);
+    if(c.type==='god'){
+      let nm=shortGodName(c.name);
+      let fs=7; textSize(fs);
+      while(textWidth(nm)>mCW-4&&fs>5){fs--;textSize(fs);}
+      text(nm,x+mCW/2,hy+mCH/2+9);
+    }
+    textStyle(NORMAL);
+  });
+  y += handH + 4;
+
+  // ── God card info panel on select ──
+  if(G.selected!==-1 && G.hands[1][G.selected] && G.hands[1][G.selected].type==='god'){
+    let gc=G.hands[1][G.selected];
+    let th=56;
+    fill(56,33,5,240); stroke(255,151,0); strokeWeight(1);
+    rect(pad, y, cw, th, 6);
+    fill(255,180,82); noStroke(); textSize(10); textAlign(LEFT); textStyle(BOLD);
+    text(gc.name, pad+8, y+16); textStyle(NORMAL);
+    fill(255,220,150); textSize(9);
+    let words=gc.eff.split(' '),line='',lineY=y+30,lineH=12;
+    words.forEach(w=>{
+      let test=line?line+' '+w:w;
+      if(textWidth(test)<cw-16){line=test;}
+      else{text(line,pad+8,lineY);lineY+=lineH;line=w;}
+    });
+    if(line)text(line,pad+8,lineY);
+    y += th + 4;
+  }
+
+  // ── Novo Jogo + log ──
+  drawButton(pad, y, 100, 26, 'Novo Jogo', true, ()=>initGame());
+  fill(80,50,20); noStroke(); textSize(9); textAlign(LEFT);
+  G.log.slice(0,4).forEach((l,i)=>text(l,pad+108,y+6+i*12));
+
+  // ── Gameover ──
+  if(G.gameover&&!modal){
+    fill(0,0,0,180); noStroke(); rect(0,0,width,height);
+    fill(255,151,0); textSize(22); textAlign(CENTER);
+    text(G._endTitle||'?',width/2,height/2-20);
+    fill(255); textSize(12); text(G._endDesc||'',width/2,height/2+10);
+    drawButton(width/2-60,height/2+30,120,30,'Jogar novamente',true,()=>initGame());
+  }
+}
 
 
 // ── CARD DRAWING ─────────────────────────────────────────────────────────────
@@ -507,13 +704,26 @@ function mousePressed() {
   if (G.gameover || G.busy || G.turn!==1) return;
 
   // Select card from player hand — use _handY synced from drawGame
-  G.hands[1].forEach((c,i) => {
-    let x = PAD+10 + i*(CW+4);
-    let baseY = _handY + 18;
-    if (mouseX>x && mouseX<x+CW && mouseY>baseY-10 && mouseY<baseY+CH+2) {
-      G.selected = (G.selected===i) ? -1 : i;
-    }
-  });
+  if (isMobile()) {
+    let pad=6, mCW=34, mCH=48;
+    let perRow=max(1,floor((width-pad*2)/(mCW+4)));
+    G.hands[1].forEach((c,i)=>{
+      let row=floor(i/perRow),col2=i%perRow;
+      let x=pad+6+col2*(mCW+4);
+      let baseY=_handY+14+row*(mCH+4);
+      if(mouseX>x&&mouseX<x+mCW&&mouseY>baseY-8&&mouseY<baseY+mCH+2){
+        G.selected=(G.selected===i)?-1:i;
+      }
+    });
+  } else {
+    G.hands[1].forEach((c,i) => {
+      let x = PAD+10 + i*(CW+4);
+      let baseY = _handY + 18;
+      if (mouseX>x && mouseX<x+CW && mouseY>baseY-10 && mouseY<baseY+CH+2) {
+        G.selected = (G.selected===i) ? -1 : i;
+      }
+    });
+  }
 
   // Deck click = draw
   let cx = PAD + (width-PAD*2-120)/2 + 4;
