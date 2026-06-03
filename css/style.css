@@ -573,6 +573,17 @@ a:hover, a:active, a.active{
   margin-bottom: 3rem;
 }
 
+.Spacing {
+  margin-bottom: 20px;
+}
+.SSpacing {
+  margin-bottom: 5px;
+}
+
+.SpacingTopXL {
+  margin-top: 50px;
+}
+
 /********************Index***********************/
 
 .ScreenSize {
