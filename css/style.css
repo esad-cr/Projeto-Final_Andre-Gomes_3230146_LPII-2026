@@ -700,3 +700,46 @@ html {
   z-index: 10;
   cursor: pointer;
 }
+
+/* ── Contacts Section ── */
+
+.contacts-hex-section {
+  padding: 2rem 1rem 2rem;
+  font-family: 'Exo', sans-serif;
+  text-align: center;
+}
+
+.contacts-hex-svg {
+  display: block;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.hex-cell {
+  cursor: pointer;
+  transition: transform 200ms ease-in-out;
+}
+
+.hex-cell polygon {
+  fill: var(--card-member-collor);
+  transition: fill 200ms ease-in-out;
+}
+
+.hex-cell:hover polygon {
+  fill: var(--card-member-hover-collor);
+}
+
+.hex-cell text {
+  fill: var(--white-color);
+  font-family: 'Exo', sans-serif;
+  font-size: 8.5px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+  pointer-events: none;
+}
+
+.hex-cell:hover text {
+  fill: var(--hover-button-collor);
+}
