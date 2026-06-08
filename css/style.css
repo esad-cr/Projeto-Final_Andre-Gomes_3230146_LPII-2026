@@ -703,43 +703,80 @@ html {
 
 /* ── Contacts Section ── */
 
-.contacts-hex-section {
-  padding: 2rem 1rem 2rem;
-  font-family: 'Exo', sans-serif;
-  text-align: center;
+.Hex_C{
+  height: 300px;
+  aspect-ratio: 1/cos(30deg);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+  background: var(--card-member-collor);
+  border-radius: 6rem !important;
+  rotate: 90deg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.contacts-hex-svg {
-  display: block;
-  margin: 0 auto;
-  overflow: visible;
-}
-
-.hex-cell {
-  cursor: pointer;
+.Hex_C:hover {
   transition: transform 200ms ease-in-out;
+  transform: scale(1.1);
+  background-color: var(--card-member-hover-collor);
+  cursor: pointer;
+  color: var(--hover-button-collor);
 }
 
-.hex-cell polygon {
-  fill: var(--card-member-collor);
-  transition: fill 200ms ease-in-out;
+.Icons_card_rotate {
+  rotate: -90deg;
+  width: 7rem !important;              
+  height: 7rem !important;
+  color: var(--light-color);
+  filter: brightness(0) invert(1);
+  margin-left: 50px;
+  margin-right: -60px;
 }
 
-.hex-cell:hover polygon {
-  fill: var(--card-member-hover-collor);
+.Hex_title{
+  rotate: -90deg;
+  color: var(--white-color);
 }
 
-.hex-cell text {
-  fill: var(--white-color);
-  font-family: 'Exo', sans-serif;
-  font-size: 8.5px;
-  font-weight: 600;
-  letter-spacing: 0.6px;
-  text-anchor: middle;
-  dominant-baseline: middle;
-  pointer-events: none;
+.Icon_mail_correction{
+  margin-left: 10px;
+  margin-right: -15px;
 }
 
-.hex-cell:hover text {
-  fill: var(--hover-button-collor);
+@media screen and (max-width: 992px) {
+  .flex {
+    flex-direction: column;
+    max-width: 100%;
+    min-width: 80%;
+    align-items: center;
+  }
+  .Hex_C {
+    clip-path: none;        
+    aspect-ratio: auto;       
+    height: 300px;            
+    border-radius: 8px;      
+    width: 150px;
+    align-items: center;
+    margin-bottom: -60px;
+    margin-top: -60px;
+  }
+
+  .Icons_card_rotate {
+  rotate: -90deg;
+  width: 4rem !important;              
+  height: 4rem !important;
+  color: var(--light-color);
+  filter: brightness(0) invert(1);
+  margin-left: -60px;
+  margin-right: -60px;
+  margin-bottom: 60px;
+}
+
+.Hex_title{
+  rotate: -90deg;
+  color: var(--white-color);
+  margin-bottom: 30px;
+}
+  
+  
 }
