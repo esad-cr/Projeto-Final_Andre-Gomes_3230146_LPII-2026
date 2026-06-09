@@ -584,6 +584,23 @@ a:hover, a:active, a.active{
   margin-top: 50px;
 }
 
+
+/************************Game*************************/
+
+#p5canvas {
+  display: flex!important;
+  justify-content: center;
+  width: 100%;
+  max-height: 600px;
+  padding: 8px;
+}
+
+#p5canvas canvas {
+  display: block!important;
+  width: auto!important;
+  height: 100%!important;
+  margin: 8px;
+}
 /********************Index***********************/
 
 .ScreenSize {
@@ -797,7 +814,7 @@ html {
   box-shadow: 0 4px 8px hsla(0, 0%, 0%, .5);
   overflow: hidden;
   flex: 0 0 64px;
-  transition: flex .5s ease;
+  transition: flex 1.2s ease;
   cursor: pointer;
 }
 
@@ -818,7 +835,7 @@ html {
 
 .card__shadow{
   background: linear-gradient(180deg, hsla(0, 0%, 85%, 0) 50%,
-                                      hsla(0, 0%, 0%, .3) 75%);
+                                     #ffb452);
 }
 
 .card__data {
@@ -845,6 +862,11 @@ html {
   flex-shrink: 0;
 }
 
+.card__icon > img{
+  width: 40px;
+  height: 45px;
+}
+
 .card__title {
   color: var(--white-color);
   margin-bottom: .25rem;
@@ -854,34 +876,9 @@ html {
   color: var(--white-color);
 }
 
-/* Card active by default, takes up more space */
-.card__active {
-  flex: 5;
-}
-
-.card__active .card__data {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.card__active:hover .card__img {
-  scale: 1.1;
-}
-
 /* Any card expands when you hover over it */
 .card__article:hover {
   flex: 5;
-}
-
-/* If the hover is NOT on the card active, contract card active at base proportion */
-.card:has(.card__article:not(.card__active):hover) .card__active {
-  flex: 0 0 64px;
-}
-
-/* If the hover is NOT in card active, it also hides its contents */
-.card:has(.card__article:not(.card__active):hover) .card__active .card__data {
-  opacity: 0;
-  transform: translateY(2rem);
 }
 
 /* Show content on the other cards */
@@ -913,10 +910,6 @@ html {
   .card__article {
     flex: 0 0 80px;
     height: 460px;
-  }
-  .card__active, 
-  .card__article:hover {
-    flex: 5;
   }
   .card:has(.card__article:not(.card__active):hover) .card__active {
     flex: 0 0 80px;

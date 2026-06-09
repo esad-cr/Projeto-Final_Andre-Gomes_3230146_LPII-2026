@@ -55,23 +55,26 @@ const PAD = 14;
 
 // ── SETUP & DRAW ─────────────────────────────────────────────────────────────
 function setup() {
-  let w = min(window.innerWidth - 4, 720);
-  let h = w < 600 ? 980 : 600;
-  let canvas = createCanvas(w, h);
-  canvas.parent('game-container');
-  canvas.style('display', 'block');
-  canvas.style('margin', '10px auto');
+  //let w = min(window.innerWidth - 4, 720);
+ // let h = w < 600 ? 980 : 600;
+ // let canvas = createCanvas(w, h);
+ var p5Canvas = createCanvas(600,600);
+ p5Canvas.parent("p5canvas");
+
+ // canvas.parent('game-container');
+ // canvas.style('display', 'block');
+  //canvas.style('margin', '10px auto');
   textFont('sans-serif');
   initGame();
 }
 
-function windowResized() {
+/*function windowResized() {
   let w = min(window.innerWidth - 4, 720);
   let h = w < 600 ? 980 : 600;
   resizeCanvas(w, h);
 }
 
-function isMobile() { return width < 600; } // triggers at 600px, designed for 442px
+function isMobile() { return width < 600; } // triggers at 600px, designed for 442px*/
 
 function draw() {
   background(219, 219, 219);
