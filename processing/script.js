@@ -1,4 +1,4 @@
- //////////////***********Playing God Demo ***********************/////////////////
+/////////////***********Playing God Demo ***********************/////////////////
 
 // ── PLAYING GOD — p5.js ──────────────────────────────────────────────────────
 
@@ -43,44 +43,58 @@ const GOD = [
 
 // ── STATE ────────────────────────────────────────────────────────────────────
 let G = {};
-let _handY = 412; // updated each frame in drawGame
-let modal = null;    // {title, desc, btns:[{label,fn}], pickCards, pickFn}
-let tooltip = null;  // {text, x, y}
+let _handY = 412;
+let modal = null;
+let tooltip = null;
 let hovered = -1;
 
 // ── LAYOUT CONSTANTS ─────────────────────────────────────────────────────────
-const CW = 52, CH = 72, CR = 6;   // card width/height/radius
-const MCW = 30, MCH = 42;         // mini card
+const CW = 52, CH = 72, CR = 6;
+const MCW = 30, MCH = 42;
 const PAD = 14;
 
 // ── SETUP & DRAW ─────────────────────────────────────────────────────────────
 function setup() {
-  //let w = min(window.innerWidth - 4, 720);
- // let h = w < 600 ? 980 : 600;
- // let canvas = createCanvas(w, h);
- var p5Canvas = createCanvas(600,600);
- p5Canvas.parent("p5canvas");
-
- // canvas.parent('game-container');
- // canvas.style('display', 'block');
-  //canvas.style('margin', '10px auto');
+  let mobile = window.innerWidth < 992;
+  let w = mobile ? window.innerWidth : 720;
+  let h = mobile ? 980 : 600;
+  let canvas = createCanvas(w, h);
+  canvas.parent('p5canvas');
+  canvas.style('display', 'block');
+  canvas.style('margin', '0 auto');
   textFont('sans-serif');
   initGame();
 }
 
-/*function windowResized() {
-  let w = min(window.innerWidth - 4, 720);
-  let h = w < 600 ? 980 : 600;
+function windowResized() {
+  let mobile = window.innerWidth < 992;
+  let w = mobile ? window.innerWidth : 720;
+  let h = mobile ? 980 : 600;
   resizeCanvas(w, h);
 }
 
-function isMobile() { return width < 600; } // triggers at 600px, designed for 442px*/
+function isMobile() {
+  return window.innerWidth < 992;
+}
 
 function draw() {
   background(219, 219, 219);
   drawGame();
   if (modal) drawModal();
   if (tooltip) drawTooltip();
+  // cursor pointer
+  let cur = 'default';
+  if (G._btns) for (let b of G._btns) {
+    if (mouseX>b.x&&mouseX<b.x+b.w&&mouseY>b.y&&mouseY<b.y+b.h){cur='pointer';break;}
+  }
+  if (!isMobile() && G.hands && G.hands[1]) {
+    G.hands[1].forEach((c,i)=>{
+      let x=PAD+10+i*(CW+4), by=_handY+18;
+      if(mouseX>x&&mouseX<x+CW&&mouseY>by-10&&mouseY<by+CH+2) cur='pointer';
+    });
+  }
+  let cnv=document.getElementById('defaultCanvas0');
+  if(cnv) cnv.style.cursor=cur;
 }
 
 // ── INIT ─────────────────────────────────────────────────────────────────────
@@ -178,7 +192,6 @@ function drawGame() {
   if (isMobile()) { drawGameMobile(); return; }
   G._btns = [];
 
-  // Fixed Y positions
   let cpuY   = 0;
   let cpuH   = 100;
   let midY   = cpuH + 4;
@@ -186,13 +199,9 @@ function drawGame() {
   let sbY    = midY + midH + 4;
   let sbH    = 40;
   let handY  = sbY + sbH + 4;
-  _handY = handY; // sync with mousePressed
+  _handY = handY;
   let handH  = CH + 30;
   let btnY   = handY + handH + 6;
-  let logY   = btnY + 34;
-
-  // resize canvas if needed
-  // (already set in setup)
 
   // ── CPU hand ──
   drawZone(PAD, cpuY, width-PAD*2, cpuH, 'CPU — mão: ' + G.hands[0].length + ' | passado: ' + G.pasts[0].length + '/13');
@@ -204,33 +213,27 @@ function drawGame() {
   let cZoneW = 110;
   let sideW  = floor((width - PAD*2 - cZoneW - 8) / 2);
 
-  // CPU past
   drawZone(PAD, midY, sideW, midH, 'Passado CPU');
   G.pasts[0].slice(-12).forEach((c,i) => {
     let col = i % 6, row = floor(i/6);
     drawMiniCard(PAD+8+col*(MCW+3), midY+18+row*(MCH+4), c, false);
   });
 
-  // Center column
   let cx = PAD + sideW + 4;
-
-  // Futuro
   let futH = CH + 48;
   drawZone(cx, midY, cZoneW, futH, 'Futuro');
   for (let i=2; i>=0; i--) drawCardBack(cx+cZoneW/2-CW/2+i*2, midY+24+i*2, false);
   fill(60,40,10); noStroke(); textSize(10); textAlign(CENTER);
   text(G.deck.length + ' cartas', cx+cZoneW/2, midY+futH-10);
 
-  // Presente — no built-in label, draw manually
   let presY2 = midY + futH + 4;
   let presH  = midH - futH - 4;
   let pHalf = floor(presH / 2);
-  let pmw = 22, pmh = 30; // tiny cards for Presente
+  let pmw = 22, pmh = 30;
   drawZone(cx, presY2, cZoneW, presH, '');
   fill(255,255,255,220); noStroke(); rect(cx+6, presY2+4, 72, 14, 3);
   fill(60,40,10); textSize(9); textAlign(LEFT); textStyle(NORMAL);
   text('PRESENTE', cx+10, presY2+14);
-  // CPU half
   fill(60,40,10); noStroke(); textSize(9); textAlign(CENTER);
   text('CPU', cx+cZoneW/2, presY2+26);
   if (G.presents[0].length === 0) {
@@ -245,10 +248,8 @@ function drawGame() {
       textStyle(NORMAL);
     });
   }
-  // divider
   stroke(255,255,255); strokeWeight(1);
   line(cx+8, presY2+pHalf, cx+cZoneW-8, presY2+pHalf);
-  // Jogador half
   fill(60,40,10); noStroke(); textSize(9); textAlign(CENTER);
   text('Jogador', cx+cZoneW/2, presY2+pHalf+14);
   if (G.presents[1].length === 0) {
@@ -264,7 +265,6 @@ function drawGame() {
     });
   }
 
-  // Player past
   let ppx = cx + cZoneW + 4;
   drawZone(ppx, midY, sideW, midH, 'Passado Jogador');
   G.pasts[1].slice(-12).forEach((c,i) => {
@@ -279,8 +279,6 @@ function drawGame() {
   if (G.globalTopIsGod) topStr = '✦ God Card — só God Card pode jogar!';
   else if (G.globalTop) topStr = 'Topo: ' + G.globalTop + (G.reverse?' ↓':'') + (G.presentLocked?' [acumulado]':'');
   text(topStr, PAD+8, sbY+sbH/2+4);
-
-  // Scores
   fill(17,9,1); textSize(11); textAlign(LEFT);
   text('CPU: ', width/2-100, sbY+sbH/2+4);
   fill(17,9,1); textStyle(BOLD);
@@ -290,16 +288,12 @@ function drawGame() {
   fill(17,9,1); textStyle(BOLD);
   text(G.pasts[1].length, width/2-18, sbY+sbH/2+4);
   textStyle(NORMAL);
-
-  // Turn badge
   let badgeX = width/2 + 10;
   fill(G.turn===1 ? color(255,151,0) : color(255,180,82));
   noStroke();
   rect(badgeX, sbY+6, 80, 26, 4);
   fill(color(17,9,1)); textSize(10); textAlign(CENTER);
   text(G.turn===1 ? 'Teu turno' + (G.extraPlays>0?' ('+G.extraPlays+')':'') : 'CPU...', badgeX+40, sbY+23);
-
-  // Jogar + Comprar in status bar
   let canAct = G.turn===1 && !G.busy && !G.gameover && !modal;
   drawButton(width-PAD-214, sbY+6, 100, 26, 'Jogar', canAct && G.selected !== -1, () => playCards());
   drawButton(width-PAD-108, sbY+6, 100, 26, 'Comprar', canAct && G.deck.length>0, () => buyCard());
@@ -319,12 +313,10 @@ function drawGame() {
     }
   });
 
-  // ── Novo Jogo button + log below hand ──
   drawButton(PAD, btnY, 100, 26, 'Novo Jogo', true, () => initGame());
   fill(80,50,20); noStroke(); textSize(10); textAlign(LEFT);
   G.log.slice(0,4).forEach((l,i) => text(l, PAD+110, btnY+4 + i*13));
 
-  // ── Gameover ──
   if (G.gameover && !modal) {
     fill(0,0,0,180); noStroke(); rect(0,0,width,height);
     fill(255,151,0); textSize(28); textAlign(CENTER);
@@ -334,48 +326,43 @@ function drawGame() {
   }
 }
 
-
-
-
-// ── MOBILE LAYOUT — designed for 442px ──────────────────────────────────────
+// ── MOBILE LAYOUT ────────────────────────────────────────────────────────────
 function drawGameMobile() {
   G._btns = [];
   let pad = 6;
   let cw = width - pad*2;
-  // Card sizes tuned for 442px
   let mCW=34, mCH=48, mCR=4;
   let mMCW=22, mMCH=28;
   let y = 0;
 
-  // ── CPU hand ──
-  // How many cards fit per row at mCW+3 spacing
-  let cpuPerRow = max(1, floor(cw / (mCW+3)));
+  let cpuPerRow = max(1, floor(cw / (mCW+4)));
   let cpuRows = max(1, ceil(G.hands[0].length / cpuPerRow));
-  let cpuHandH = cpuRows * (mCH+4) + 16;
+  let cpuHandH = cpuRows * (mCH+4) + 22;
   drawZone(pad, y, cw, cpuHandH, 'CPU — mão: '+G.hands[0].length+' | passado: '+G.pasts[0].length+'/13');
   G.hands[0].forEach((c,i) => {
     let row=floor(i/cpuPerRow), col2=i%cpuPerRow;
-    drawCardBack(pad+6+col2*(mCW+3), y+14+row*(mCH+4), c.type==='god');
+    drawCardBack(pad+8+col2*(mCW+4), y+18+row*(mCH+4), c.type==='god');
   });
   y += cpuHandH + 4;
 
-  // ── CPU past ──
-  let cpuPastH = mMCH + 20;
+  let mmPerRow = max(1, floor(cw / (mMCW+3)));
+  let cpuPastRows = max(1, ceil(min(G.pasts[0].length, mmPerRow*2) / mmPerRow));
+  let cpuPastH = cpuPastRows * (mMCH+3) + 22;
   drawZone(pad, y, cw, cpuPastH, 'Passado CPU');
-  G.pasts[0].slice(-14).forEach((c,i) => {
+  G.pasts[0].slice(-mmPerRow*2).forEach((c,i) => {
+    let r=floor(i/mmPerRow), c2=i%mmPerRow;
     let col=getSuitCol(c);
     fill(col[0],col[1],col[2],50); stroke(col[0],col[1],col[2]); strokeWeight(1);
-    rect(pad+6+i*(mMCW+2), y+16, mMCW, mMCH, 3);
-    fill(col[0]*0.5,col[1]*0.5,col[2]*0.5); noStroke(); textSize(8); textAlign(CENTER); textStyle(BOLD);
-    text(c.type==='god'?'✦':vLabel(c.value), pad+6+i*(mMCW+2)+mMCW/2, y+16+mMCH/2+3);
+    rect(pad+8+c2*(mMCW+3), y+18+r*(mMCH+3), mMCW, mMCH, 3);
+    fill(col[0]*0.5,col[1]*0.5,col[2]*0.5); noStroke(); textSize(10); textAlign(CENTER); textStyle(BOLD);
+    text(c.type==='god'?'✦':vLabel(c.value), pad+8+c2*(mMCW+3)+mMCW/2, y+18+r*(mMCH+3)+mMCH/2+3);
     textStyle(NORMAL);
   });
   y += cpuPastH + 4;
 
-  // ── Futuro + Presente ──
-  let futW = 90;
+  let futW = 110;
   let presW = cw - futW - 4;
-  let midH = 120;
+  let midH = 150;
 
   drawZone(pad, y, futW, midH, 'Futuro');
   drawCardBack(pad+futW/2-mCW/2, y+16, false);
@@ -387,7 +374,6 @@ function drawGameMobile() {
   fill(255,255,255,220); noStroke(); rect(px+4,y+4,68,14,3);
   fill(60,40,10); textSize(9); textAlign(LEFT); textStyle(NORMAL);
   text('PRESENTE', px+8, y+14);
-
   let pHalf = floor(midH/2);
   fill(100); noStroke(); textSize(9); textAlign(CENTER);
   text('CPU', px+presW/2, y+26);
@@ -420,52 +406,50 @@ function drawGameMobile() {
   }
   y += midH + 4;
 
-  // ── Player past ──
-  let ppH = mMCH + 20;
+  let ppRows = max(1, ceil(min(G.pasts[1].length, mmPerRow*2) / mmPerRow));
+  let ppH = ppRows * (mMCH+3) + 22;
   drawZone(pad, y, cw, ppH, 'Passado Jogador');
-  G.pasts[1].slice(-14).forEach((c,i) => {
+  G.pasts[1].slice(-mmPerRow*2).forEach((c,i) => {
+    let r=floor(i/mmPerRow), c2=i%mmPerRow;
     let col=getSuitCol(c);
     fill(col[0],col[1],col[2],50); stroke(col[0],col[1],col[2]); strokeWeight(1);
-    rect(pad+6+i*(mMCW+2), y+16, mMCW, mMCH, 3);
-    fill(col[0]*0.5,col[1]*0.5,col[2]*0.5); noStroke(); textSize(8); textAlign(CENTER); textStyle(BOLD);
-    text(c.type==='god'?'✦':vLabel(c.value), pad+6+i*(mMCW+2)+mMCW/2, y+16+mMCH/2+3);
+    rect(pad+8+c2*(mMCW+3), y+18+r*(mMCH+3), mMCW, mMCH, 3);
+    fill(col[0]*0.5,col[1]*0.5,col[2]*0.5); noStroke(); textSize(10); textAlign(CENTER); textStyle(BOLD);
+    text(c.type==='god'?'✦':vLabel(c.value), pad+8+c2*(mMCW+3)+mMCW/2, y+18+r*(mMCH+3)+mMCH/2+3);
     textStyle(NORMAL);
   });
   y += ppH + 4;
 
-  // ── Status bar ──
   let sbH = 52;
   drawZone(pad, y, cw, sbH, '');
-  fill(17,9,1); noStroke(); textSize(10); textAlign(LEFT);
+  fill(17,9,1); noStroke(); textSize(13); textAlign(LEFT);
   let topStr='Ronda nova'+(G.reverse?' ↓':'')+(G.presentLocked?' [ac.]':'');
   if(G.globalTopIsGod) topStr='✦ Só God Card!';
   else if(G.globalTop) topStr='Topo: '+G.globalTop+(G.reverse?' ↓':'');
   text(topStr, pad+6, y+16);
   textAlign(RIGHT);
-  text('CPU:'+G.pasts[0].length+'  Tu:'+G.pasts[1].length, pad+cw-6, y+16);
+  textSize(13); text('CPU:'+G.pasts[0].length+'  Tu:'+G.pasts[1].length, pad+cw-6, y+16);
   fill(G.turn===1?color(255,151,0):color(255,180,82)); noStroke();
   rect(pad+4, y+22, cw-8, 24, 4);
-  fill(17,9,1); textSize(10); textAlign(CENTER);
+  fill(17,9,1); textSize(13); textAlign(CENTER);
   text(G.turn===1?'Teu turno'+(G.extraPlays>0?' (+'+G.extraPlays+')':''):'CPU a jogar...', pad+cw/2, y+38);
   y += sbH + 4;
 
-  // ── Buttons ──
   let canAct=G.turn===1&&!G.busy&&!G.gameover&&!modal;
   let bw=(cw-4)/2;
   drawButton(pad,y,bw,30,'Jogar',canAct&&G.selected!==-1,()=>playCards());
   drawButton(pad+bw+4,y,bw,30,'Comprar',canAct&&G.deck.length>0,()=>buyCard());
   y += 38;
 
-  // ── Player hand ──
   let perRow = max(1, floor(cw / (mCW+4)));
   let rows = max(1, ceil(G.hands[1].length/perRow));
-  let handH = rows*(mCH+4)+18;
+  let handH = rows*(mCH+4)+24;
   _handY = y;
   drawZone(pad, y, cw, handH, 'A tua mão — '+G.hands[1].length+' cartas | passado: '+G.pasts[1].length+'/13');
   G.hands[1].forEach((c,i) => {
     let row=floor(i/perRow), col2=i%perRow;
-    let x=pad+6+col2*(mCW+4);
-    let baseY=y+14+row*(mCH+4);
+    let x=pad+8+col2*(mCW+4);
+    let baseY=y+18+row*(mCH+4);
     let sel=G.selected===i;
     let ok=canPlay(c);
     let hy=sel?baseY-6:baseY;
@@ -476,7 +460,7 @@ function drawGameMobile() {
     rect(x,hy,mCW,mCH,mCR);
     fill(ok?color(col[0]*0.6,col[1]*0.6,col[2]*0.6):150);
     noStroke(); textAlign(CENTER); textStyle(BOLD);
-    textSize(12); text(c.type==='god'?'✦':vLabel(c.value),x+mCW/2,hy+mCH/2-2);
+    textSize(16); text(c.type==='god'?'✦':vLabel(c.value),x+mCW/2,hy+mCH/2-2);
     if(c.type==='god'){
       let nm=shortGodName(c.name);
       let fs=7; textSize(fs);
@@ -487,7 +471,6 @@ function drawGameMobile() {
   });
   y += handH + 4;
 
-  // ── God card info panel on select ──
   if(G.selected!==-1 && G.hands[1][G.selected] && G.hands[1][G.selected].type==='god'){
     let gc=G.hands[1][G.selected];
     let th=56;
@@ -506,12 +489,10 @@ function drawGameMobile() {
     y += th + 4;
   }
 
-  // ── Novo Jogo + log ──
   drawButton(pad, y, 100, 26, 'Novo Jogo', true, ()=>initGame());
   fill(80,50,20); noStroke(); textSize(9); textAlign(LEFT);
   G.log.slice(0,4).forEach((l,i)=>text(l,pad+108,y+6+i*12));
 
-  // ── Gameover ──
   if(G.gameover&&!modal){
     fill(0,0,0,180); noStroke(); rect(0,0,width,height);
     fill(255,151,0); textSize(22); textAlign(CENTER);
@@ -521,7 +502,6 @@ function drawGameMobile() {
   }
 }
 
-
 // ── CARD DRAWING ─────────────────────────────────────────────────────────────
 function renderCard(x, y, c, playable, selected) {
   let col = getSuitCol(c);
@@ -530,27 +510,21 @@ function renderCard(x, y, c, playable, selected) {
   if (!playable) { fill(200,200,200,80); stroke(180); strokeWeight(1.5); }
   else { fill(bgCol); stroke(borderCol); strokeWeight(selected?2.5:2); }
   rect(x, y, CW, CH, CR);
-  // value
   fill(playable ? color(col[0]*0.6,col[1]*0.6,col[2]*0.6) : 150);
   noStroke(); textSize(16); textAlign(CENTER); textStyle(BOLD);
   text(c.type==='god' ? '✦' : vLabel(c.value), x+CW/2, y+CH/2-4);
   textStyle(NORMAL);
   if (c.type==='god') {
     let nm = shortGodName(c.name);
-    // shrink font until text fits within card width
-    let fs = 8;
-    textSize(fs);
+    let fs = 8; textSize(fs);
     while (textWidth(nm) > CW-6 && fs > 5) { fs--; textSize(fs); }
     text(nm, x+CW/2, y+CH/2+10);
   }
 }
 
 function drawCardBack(x, y, isGod) {
-  if (isGod) {
-    fill(45,26,14); stroke(201,134,10); strokeWeight(2);
-  } else {
-    fill(30,58,95); stroke(45,90,142); strokeWeight(2);
-  }
+  if (isGod) { fill(45,26,14); stroke(201,134,10); strokeWeight(2); }
+  else { fill(30,58,95); stroke(45,90,142); strokeWeight(2); }
   rect(x, y, CW, CH, CR);
   fill(isGod ? color(232,184,75) : color(123,175,212));
   noStroke(); textSize(isGod?14:18); textAlign(CENTER); textStyle(BOLD);
@@ -582,8 +556,13 @@ function drawZone(x, y, w, h, label) {
 }
 
 function drawButton(x, y, w, h, label, enabled, fn) {
-  if (enabled) { fill(255,151,0); stroke(255,180,82); }
-  else { fill(255,180,82); stroke(255,200,120); }
+  let hovering = mouseX>x && mouseX<x+w && mouseY>y && mouseY<y+h;
+  if (enabled) {
+    fill(hovering ? color(255,180,82) : color(255,151,0));
+    stroke(255,200,120);
+  } else {
+    fill(255,180,82); stroke(255,200,120);
+  }
   strokeWeight(1); rect(x, y, w, h, 6);
   fill(enabled ? color(17,9,1) : color(100,70,30));
   noStroke(); textSize(11); textAlign(CENTER); textStyle(BOLD);
@@ -599,8 +578,6 @@ function drawTooltip() {
   if (!tooltip) return;
   let tw = 180, lh = 13, pad = 8;
   textSize(10); textAlign(LEFT); textStyle(NORMAL);
-
-  // Word-wrap each line to fit tw-pad*2
   let rawLines = tooltip.text.split('\n');
   let wrapped = [];
   rawLines.forEach(raw => {
@@ -608,16 +585,11 @@ function drawTooltip() {
     let cur = '';
     words.forEach(w => {
       let test = cur ? cur + ' ' + w : w;
-      if (textWidth(test) < tw - pad*2) {
-        cur = test;
-      } else {
-        if (cur) wrapped.push(cur);
-        cur = w;
-      }
+      if (textWidth(test) < tw - pad*2) { cur = test; }
+      else { if (cur) wrapped.push(cur); cur = w; }
     });
     if (cur) wrapped.push(cur);
   });
-
   let th = wrapped.length * lh + pad * 2;
   let tx = min(tooltip.x, width - tw - 4);
   let ty = max(4, tooltip.y - th - 6);
@@ -630,20 +602,15 @@ function drawTooltip() {
 // ── MODAL ────────────────────────────────────────────────────────────────────
 function drawModal() {
   if (!modal) return;
-  // dim
   fill(0,0,0,160); noStroke(); rect(0,0,width,height);
-  // box
   let bw=340, bh=modal.pickCards ? 320 : 200;
   let bx=width/2-bw/2, by=height/2-bh/2;
   fill(219,219,219); stroke(255,255,255); strokeWeight(2); rect(bx,by,bw,bh,10);
-  // title
   fill(17,9,1); noStroke(); textSize(14); textAlign(LEFT); textStyle(BOLD);
   text(modal.title, bx+14, by+24); textStyle(NORMAL);
-  // desc
   textSize(11); fill(60,40,10);
   let descLines = modal.desc.split('\n');
   descLines.forEach((l,i) => text(l, bx+14, by+42+i*14));
-  // pick cards
   if (modal.pickCards) {
     modal.pickCards.forEach((c,i) => {
       let cx2 = bx+14 + i*(CW+4);
@@ -651,7 +618,6 @@ function drawModal() {
       renderCard(cx2, cy2, c, true, false);
     });
   }
-  // buttons
   G._btns = [];
   if (modal.btns) {
     modal.btns.forEach((b,i) => {
@@ -665,7 +631,6 @@ function drawModal() {
 // ── INPUT ────────────────────────────────────────────────────────────────────
 function mousePressed() {
   G._btns = G._btns || [];
-  // Check buttons first
   for (let b of G._btns) {
     if (mouseX>b.x && mouseX<b.x+b.w && mouseY>b.y && mouseY<b.y+b.h) {
       b.fn(); G._btns=[]; return;
@@ -673,7 +638,6 @@ function mousePressed() {
   }
   G._btns = [];
 
-  // Modal pick cards
   if (modal && modal.pickCards) {
     let bw=340, bh=320;
     let bx=width/2-bw/2, by=height/2-bh/2;
@@ -682,9 +646,7 @@ function mousePressed() {
       let cx2 = bx+14 + i*(CW+4);
       let cy2 = by+42 + descLines.length*14 + 8;
       if (mouseX>cx2 && mouseX<cx2+CW && mouseY>cy2 && mouseY<cy2+CH) {
-        let fn = modal.pickFn;
-        modal = null;
-        fn(i);
+        let fn = modal.pickFn; modal = null; fn(i);
       }
     });
     return;
@@ -693,14 +655,14 @@ function mousePressed() {
   if (modal) return;
   if (G.gameover || G.busy || G.turn!==1) return;
 
-  // Select card from player hand — use _handY synced from drawGame
   if (isMobile()) {
-    let pad=6, mCW=34, mCH=48;
-    let perRow=max(1,floor((width-pad*2)/(mCW+4)));
+    let pad=8, cw=width-pad*2;
+    let mCW=42, mCH=58;
+    let perRow=max(1,floor(cw/(mCW+4)));
     G.hands[1].forEach((c,i)=>{
       let row=floor(i/perRow),col2=i%perRow;
-      let x=pad+6+col2*(mCW+4);
-      let baseY=_handY+14+row*(mCH+4);
+      let x=pad+8+col2*(mCW+4);
+      let baseY=_handY+18+row*(mCH+4);
       if(mouseX>x&&mouseX<x+mCW&&mouseY>baseY-8&&mouseY<baseY+mCH+2){
         G.selected=(G.selected===i)?-1:i;
       }
@@ -715,20 +677,11 @@ function mousePressed() {
     });
   }
 
-  // Deck click = draw
   let cx = PAD + (width-PAD*2-120)/2 + 4;
   let midY = 110;
   if (mouseX>cx+28 && mouseX<cx+28+CW && mouseY>midY+16 && mouseY<midY+16+CH) {
     if (G.turn===1 && !G.busy && G.deck.length>0) buyCard();
   }
-}
-
-function getHandY() {
-  let cpuZoneH=88, midY=PAD+cpuZoneH+4, midH=CH+20;
-  let futH=CH+28, presH=MCH*2+28;
-  let presY=midY+futH+4;
-  let sbY=max(midY+midH, presY+presH)+4;
-  return sbY+36;
 }
 
 // ── GAME ACTIONS ─────────────────────────────────────────────────────────────
@@ -885,12 +838,8 @@ function triggerGod(card, who, done) {
   runGodEffect(card.id, who, opp, done);
 }
 
-function showModal(title, desc, btns) {
-  modal = { title, desc, btns };
-}
-function showPickModal(title, desc, cards, pickFn) {
-  modal = { title, desc, pickCards:[...cards], pickFn };
-}
+function showModal(title, desc, btns) { modal = { title, desc, btns }; }
+function showPickModal(title, desc, cards, pickFn) { modal = { title, desc, pickCards:[...cards], pickFn }; }
 
 function runGodEffect(id, who, opp, done) {
   if (id===4) {
@@ -1006,4 +955,4 @@ function runGodEffect(id, who, opp, done) {
   }
 }
 
-//////////////***********Playing God Demo ***********************/////////////////
+/////////////***********Playing God Demo ***********************/////////////////
