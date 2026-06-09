@@ -56,7 +56,7 @@ const PAD = 14;
 // ── SETUP & DRAW ─────────────────────────────────────────────────────────────
 function setup() {
   let mobile = window.innerWidth < 992;
-  let w = mobile ? window.innerWidth : 720;
+  let w = mobile ? window.innerWidth - 8 : 720;
   let h = mobile ? 980 : 600;
   let canvas = createCanvas(w, h);
   canvas.parent('p5canvas');
@@ -68,7 +68,7 @@ function setup() {
 
 function windowResized() {
   let mobile = window.innerWidth < 992;
-  let w = mobile ? window.innerWidth : 720;
+  let w = mobile ? window.innerWidth - 8 : 720;
   let h = mobile ? 980 : 600;
   resizeCanvas(w, h);
 }
