@@ -805,7 +805,7 @@ html {
 
 /*=============== CARD ===============*/
 .card-expand {
-  height: 100%;
+  height: 100vh;
   margin-inline: 1rem;
   padding-block: 3rem;
   display: flex;
@@ -907,10 +907,17 @@ html {
 /* For large devices <> */
 @media screen and (width >= 1150px) {
   .card-expand {
-    max-width: 1120px;
-    margin-inline: auto;
-    flex-direction: row;
-    column-gap: 1.5rem;
+  display: flex;      
+  align-items: flex-start;  
+  gap: 10px;                 
+  margin-top: 20px;
+  justify-content: center;
+  filter: url(#round);
+  height: 100%;
+  max-width: 1120px;
+  margin-inline: auto;
+  flex-direction: row;
+  column-gap: 1.5rem;
   }
   .card__article {
     flex: 0 0 80px;
