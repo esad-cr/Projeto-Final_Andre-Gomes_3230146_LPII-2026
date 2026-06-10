@@ -725,6 +725,25 @@ html {
 
 /* ── Contacts Section ── */
 
+.flexHex {
+  display: flex;
+  flex-direction: row;       
+  align-items: flex-start;  
+  gap: -30px;                 
+  margin-top: 20px;
+  justify-content: center;
+  filter: url(#round);
+}
+.flexHexBot {
+  display: flex;
+  flex-direction: row;       
+  align-items: flex-start;  
+  gap: -30px;                 
+  margin-top: -20px;
+  justify-content: center;
+  filter: url(#round);
+}
+
 .Hex_C{
   height: 300px;
   aspect-ratio: 1/cos(30deg);
@@ -738,8 +757,8 @@ html {
 }
 
 .Hex_C:hover {
-  transition: transform 200ms ease-in-out;
-  transform: scale(1.1);
+  transition: transform 300ms ease-in-out;
+  transform: scale(1.32);
   background-color: var(--card-member-hover-collor);
   cursor: pointer;
   color: var(--hover-button-collor);
@@ -766,11 +785,14 @@ html {
 }
 
 @media screen and (max-width: 992px) {
-  .flex {
-    flex-direction: column;
+  .flexHex .flexHexBot {
+    flex-direction: column !important;
     max-width: 100%;
     min-width: 80%;
     align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    display: flex;
   }
   .Hex_C {
     clip-path: none;        
@@ -798,6 +820,9 @@ html {
   rotate: -90deg;
   color: var(--white-color);
   margin-bottom: 30px;
+}
+.Hex_C:hover {
+  transform: scale(1.1);
 }
   
   
@@ -941,4 +966,15 @@ html {
 
 .SpacingTopXXL{
   margin-top: 100px;
+}
+
+.GetBack {
+  cursor: pointer;
+  filter: invert(75%) sepia(60%) saturate(700%) hue-rotate(330deg) brightness(1);
+}
+
+.GetBack:hover{
+  cursor: pointer;
+  filter: invert(75%) sepia(60%) saturate(300%) hue-rotate(330deg) brightness(1.05);
+  opacity: 80%;
 }
