@@ -805,7 +805,7 @@ html {
 
 /*=============== CARD ===============*/
 .card-expand {
-  height: 100vh;
+  height: 100%;
   margin-inline: 1rem;
   padding-block: 3rem;
   display: flex;
@@ -930,4 +930,8 @@ html {
     font-size: var(--normal-font-size);
     white-space: nowrap;
   }
+}
+
+.SpacingTopXXL{
+  margin-top: 100px;
 }
