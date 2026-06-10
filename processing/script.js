@@ -335,13 +335,17 @@ function drawGameMobile() {
   let mMCW=22, mMCH=28;
   let y = 0;
 
-  let cpuPerRow = max(1, floor(cw / (mCW+4)));
+  // CPU hand: use smaller cards to fit all in zone
+  let cpuCW = min(mCW, floor((cw - pad*2) / max(G.hands[0].length, 1)) - 4);
+  cpuCW = max(cpuCW, 24); // minimum size
+  let cpuCH = floor(cpuCW * 1.4);
+  let cpuPerRow = max(1, floor(cw / (cpuCW+4)));
   let cpuRows = max(1, ceil(G.hands[0].length / cpuPerRow));
-  let cpuHandH = cpuRows * (mCH+4) + 22;
+  let cpuHandH = cpuRows * (cpuCH+4) + 22;
   drawZone(pad, y, cw, cpuHandH, 'CPU — mão: '+G.hands[0].length+' | passado: '+G.pasts[0].length+'/13');
   G.hands[0].forEach((c,i) => {
     let row=floor(i/cpuPerRow), col2=i%cpuPerRow;
-    drawCardBack(pad+8+col2*(mCW+4), y+18+row*(mCH+4), c.type==='god');
+    drawCardBack(pad+8+col2*(cpuCW+4), y+18+row*(cpuCH+4), c.type==='god', cpuCW, cpuCH);
   });
   y += cpuHandH + 4;
 
@@ -365,7 +369,10 @@ function drawGameMobile() {
   let midH = 150;
 
   drawZone(pad, y, futW, midH, 'Futuro');
-  drawCardBack(pad+futW/2-mCW/2, y+16, false);
+  // Center the card in the Futuro zone
+  let deckX = pad + floor(futW/2) - floor(mCW/2);
+  let deckY = y + floor((midH - mCH)/2) + 4;
+  drawCardBack(deckX, deckY, false, mCW, mCH);
   fill(60,40,10); noStroke(); textSize(9); textAlign(CENTER);
   text(G.deck.length+' cartas', pad+futW/2, y+midH-8);
 
@@ -522,14 +529,15 @@ function renderCard(x, y, c, playable, selected) {
   }
 }
 
-function drawCardBack(x, y, isGod) {
+function drawCardBack(x, y, isGod, cw=CW, ch=CH) {
+  let cr = max(4, cw*0.1);
   if (isGod) { fill(45,26,14); stroke(201,134,10); strokeWeight(2); }
   else { fill(30,58,95); stroke(45,90,142); strokeWeight(2); }
-  rect(x, y, CW, CH, CR);
+  rect(x, y, cw, ch, cr);
   fill(isGod ? color(232,184,75) : color(123,175,212));
-  noStroke(); textSize(isGod?14:18); textAlign(CENTER); textStyle(BOLD);
-  text(isGod ? '✦' : '◈', x+CW/2, y+CH/2+6);
-  if (isGod) { textSize(7); text('GOD', x+CW/2, y+CH/2+18); }
+  noStroke(); textSize(isGod ? cw*0.27 : cw*0.35); textAlign(CENTER); textStyle(BOLD);
+  text(isGod ? '✦' : '◈', x+cw/2, y+ch/2+cw*0.08);
+  if (isGod) { textSize(cw*0.13); text('GOD', x+cw/2, y+ch/2+cw*0.25); }
   textStyle(NORMAL);
 }
 

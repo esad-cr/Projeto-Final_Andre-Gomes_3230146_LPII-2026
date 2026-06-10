@@ -599,6 +599,13 @@ a:hover, a:active, a.active{
   display: block !important;
   max-width: 100% !important;
 }
+
+@media screen and (max-width: 992px){
+  #p5canvas canvas {
+  margin-bottom: -3000x !important;
+  }
+}
+
 /********************Index***********************/
 
 .ScreenSize {
