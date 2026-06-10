@@ -54,10 +54,41 @@ const MCW = 30, MCH = 42;
 const PAD = 14;
 
 // ── SETUP & DRAW ─────────────────────────────────────────────────────────────
+function calcMobileHeight() {
+  // Estimate total height of mobile layout based on current G state
+  let pad = 8, cw = (window.innerWidth - 8) - pad*2;
+  let mCW = 42, mCH = 58, mMCW = 26, mMCH = 32;
+  // CPU hand
+  let cpuCW = min(mCW, floor((cw - pad*2) / max(G && G.hands ? G.hands[0].length : 4, 1)) - 4);
+  cpuCW = max(cpuCW, 24);
+  let cpuCH = floor(cpuCW * 1.4);
+  let cpuPerRow = max(1, floor(cw / (cpuCW+4)));
+  let cpuRows = max(1, ceil((G && G.hands ? G.hands[0].length : 4) / cpuPerRow));
+  let cpuHandH = cpuRows * (cpuCH+4) + 22;
+  // CPU past
+  let mmPerRow = max(1, floor(cw / (mMCW+3)));
+  let cpuPastH = mMCH + 22;
+  // Futuro+Presente
+  let midH = 150;
+  // Player past
+  let ppH = mMCH + 22;
+  // Status bar
+  let sbH = 52;
+  // Buttons
+  let btnH = 38;
+  // Player hand
+  let perRow = max(1, floor(cw / (mCW+4)));
+  let handRows = max(1, ceil((G && G.hands ? G.hands[1].length : 4) / perRow));
+  let handH = handRows*(mCH+4)+24;
+  // God info panel (optional ~60px) + Novo Jogo + log
+  let extraH = 100;
+  return cpuHandH + 4 + cpuPastH + 4 + midH + 4 + ppH + 4 + sbH + 4 + btnH + 4 + handH + extraH;
+}
+
 function setup() {
   let mobile = window.innerWidth < 992;
   let w = mobile ? window.innerWidth - 8 : 720;
-  let h = mobile ? 980 : 600;
+  let h = mobile ? calcMobileHeight() : 600;
   let canvas = createCanvas(w, h);
   canvas.parent('p5canvas');
   canvas.style('display', 'block');
@@ -69,7 +100,7 @@ function setup() {
 function windowResized() {
   let mobile = window.innerWidth < 992;
   let w = mobile ? window.innerWidth - 8 : 720;
-  let h = mobile ? 980 : 600;
+  let h = mobile ? calcMobileHeight() : 600;
   resizeCanvas(w, h);
 }
 

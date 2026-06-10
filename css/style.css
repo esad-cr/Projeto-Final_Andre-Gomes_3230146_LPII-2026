@@ -105,6 +105,7 @@ p{
     font-size: 12px;
     font-family: "Exo Regular", Roboto Flex Regular, sans-serif;
     color: var(--body-color);
+    line-height: 20px;
 }
 
 small {
@@ -568,6 +569,61 @@ a:hover, a:active, a.active{
   
 }
 
+.member-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+}
+
+.member-overlay:target {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.member-overlay__bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.member-overlay__content {
+  position: relative;
+  z-index: 1;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.member-overlay__content img {
+  display: block;
+  max-width: 100%;
+  max-height: 90vh;
+  border-radius: 12px;
+}
+
+.member-overlay__close {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  background: var(--button-collor);
+  color: var(--white-color);
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.member-overlay__close:hover {
+  background: var(--hover-button-collor);
+  color: var(--black-color-light);
+}
+
 .Texto_Demo {
   text-align: left;
   margin-bottom: 3rem;
@@ -600,11 +656,6 @@ a:hover, a:active, a.active{
   max-width: 100% !important;
 }
 
-@media screen and (max-width: 992px){
-  #p5canvas canvas {
-  margin-bottom: ;
-  }
-}
 
 /********************Index***********************/
 
@@ -977,4 +1028,54 @@ html {
   cursor: pointer;
   filter: invert(75%) sepia(60%) saturate(300%) hue-rotate(330deg) brightness(1.05);
   opacity: 80%;
+}
+
+.TamanhoVideo{
+  width: 1000px;
+  height: auto;
+  margin: 70px;
+}
+
+.TamanhoVideo > img{
+  width: 1000px;
+  height: auto;
+  margin: 70px;
+}
+
+.WorkPageImage {
+  width: 400px;
+  height: auto;
+}
+.flexWorks {
+  display: flex;
+  flex-direction: row;       
+  align-items: flex-start;  
+  gap: 10px;                 
+  margin-top: 20px;
+  justify-content: center;
+  filter: url(#round);
+}
+
+@media screen and (max-width: 992px){
+  .TamanhoVideo{
+  width: 400px;
+  height: auto;
+  margin: 20px;
+}
+
+.TamanhoVideo > img{
+  width: 800px;
+  height: auto;
+  margin: 20px;
+}
+
+.WorkPageImage {
+  width: 400px;
+  height: auto;
+}
+.flexWorks {
+  flex-direction: column;
+  align-items: center;
+  width: auto; 
+}
 }
