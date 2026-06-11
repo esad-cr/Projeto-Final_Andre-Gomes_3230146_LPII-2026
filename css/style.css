@@ -957,30 +957,15 @@ html {
   color: var(--white-color);
 }
 
-/* Any card expands when you hover over it */
 .card__article:hover {
   flex: 5;
 }
 
-/* Show content on the other cards */
 .card__article:hover .card__data {
   opacity: 1;
   transform: translateY(0);
 }
 
-/*=============== BREAKPOINTS ===============*/
-/* For medium devices <> */
-@media (width >= 540px) {
-  .card {
-    align-items: center;
-  }
-  .card__article {
-    width: 400px;
-    justify-self: center;
-  }
-}
-
-/* For large devices <> */
 @media screen and (width >= 1150px) {
   .card-expand {
   display: flex;      
@@ -1015,7 +1000,7 @@ html {
   }
 }
 
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 992px) {
   .card__article {
     flex: 5 !important;
     min-height: 200px;
