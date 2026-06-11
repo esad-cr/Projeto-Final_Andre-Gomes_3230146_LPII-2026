@@ -1086,3 +1086,9 @@ html {
   width: auto; 
 }
 }
+
+.ImgagesWorks > img{
+  width: 810px;
+  max-height: 810px;
+  height: fit-content;
+}
