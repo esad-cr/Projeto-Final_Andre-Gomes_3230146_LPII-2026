@@ -1015,6 +1015,18 @@ html {
   }
 }
 
+@media screen and (max-width: 1149px) {
+  .card__article {
+    flex: 5 !important;
+    min-height: 200px;
+  }
+
+  .card__data {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+
 .SpacingTopXXL{
   margin-top: 100px;
 }
@@ -1043,7 +1055,7 @@ html {
 }
 
 .WorkPageImage {
-  width: 400px;
+  width: 700px;
   height: auto;
 }
 .flexWorks {
