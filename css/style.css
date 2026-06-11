@@ -966,6 +966,16 @@ html {
   transform: translateY(0);
 }
 
+@media (width >= 540px) {
+  .card {
+    align-items: center;
+  }
+  .card__article {
+    width: 400px;
+    justify-self: center;
+  }
+}
+
 @media screen and (width >= 1150px) {
   .card-expand {
   display: flex;      
