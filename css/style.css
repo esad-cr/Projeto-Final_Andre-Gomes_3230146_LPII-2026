@@ -1015,7 +1015,7 @@ html {
   }
 }
 
-@media screen and (max-width: 1149px) {
+@media screen and (max-width: 920px) {
   .card__article {
     flex: 5 !important;
     min-height: 200px;
