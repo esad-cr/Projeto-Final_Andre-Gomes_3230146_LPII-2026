@@ -836,47 +836,43 @@ html {
 }
 
 @media screen and (max-width: 992px) {
-  .flexHex .flexHexBot {
+  .flexHex,
+  .flexHexBot {
     flex-direction: column !important;
     max-width: 100%;
     min-width: 80%;
     align-items: center;
-    gap: 10px;
-    margin-top: 20px;
+    gap: 30px;
+    margin-top: 30px;
     display: flex;
   }
+
   .Hex_C {
-    clip-path: none;        
-    aspect-ratio: auto;       
-    height: 300px;            
-    border-radius: 8px;      
-    width: 150px;
+    clip-path: none !important;        
+    aspect-ratio: auto !important;       
+    height: 100px !important;            
+    border-radius: 40px !important;      
+    width: 300px !important;
     align-items: center;
-    margin-bottom: -60px;
-    margin-top: -60px;
+    margin-bottom: 0;
+    margin-top: 0;
+    rotate: 0deg !important;
   }
 
   .Icons_card_rotate {
-  rotate: -90deg;
-  width: 4rem !important;              
-  height: 4rem !important;
-  color: var(--light-color);
-  filter: brightness(0) invert(1);
-  margin-left: -60px;
-  margin-right: -60px;
-  margin-bottom: 60px;
-}
+    rotate: 0deg !important;
+    width: 2.5rem !important;              
+    height: 2.5rem !important;
+    color: var(--light-color);
+    filter: brightness(0) invert(1);
+    margin: 0 !important;
+  }
 
-.Hex_title{
-  rotate: -90deg;
-  color: var(--white-color);
-  margin-bottom: 30px;
-}
-.Hex_C:hover {
-  transform: scale(1.1);
-}
-  
-  
+  .Hex_title{
+    rotate: 0deg !important;
+    color: var(--white-color);
+    margin-bottom: 0;
+  }
 }
 
 /*=============== CARD ===============*/
@@ -976,37 +972,20 @@ html {
   }
 }
 
-@media screen and (width >= 1150px) {
+@media screen and (min-width: 992px) {
   .card-expand {
-  display: flex;      
-  align-items: flex-start;  
-  gap: 10px;                 
-  margin-top: 20px;
-  justify-content: center;
-  filter: url(#round);
-  height: 100%;
-  max-width: 1120px;
-  margin-inline: auto;
-  flex-direction: row;
-  column-gap: 1.5rem;
+    flex-direction: row !important;
+    height: auto;
+    gap: 20px;
+    justify-content: center;
   }
   .card__article {
-    flex: 0 0 80px;
-    height: 460px;
-  }
-  .card:has(.card__article:not(.card__active):hover) .card__active {
-    flex: 0 0 80px;
+    height: 500px !important;
+    flex: 1 ;
   }
   .card__data {
-    left: 1.5rem;
-    bottom: 1.5rem;
-  }
-  .card__title {
-    white-space: nowrap;
-  }
-  .card__description {
-    font-size: var(--normal-font-size);
-    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(2rem);
   }
 }
 
