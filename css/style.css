@@ -877,7 +877,6 @@ html {
 
 /*=============== CARD ===============*/
 .card-expand {
-  height: 100vh;
   margin-inline: 1rem;
   padding-block: 3rem;
   display: flex;
@@ -999,6 +998,10 @@ html {
     opacity: 1 !important;
     transform: translateY(0) !important;
   }
+}
+
+.-MargemTop{
+  margin-top: -80px;
 }
 
 .SpacingTopXXL{
