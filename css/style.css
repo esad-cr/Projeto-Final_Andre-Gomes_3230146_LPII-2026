@@ -890,6 +890,7 @@ html {
   box-shadow: 0 4px 8px hsla(0, 0%, 0%, .5);
   overflow: hidden;
   flex: 0 0 64px;
+  min-height: 300px;
   transition: flex 1.2s ease;
   cursor: pointer;
 }
@@ -903,10 +904,11 @@ html {
   height: 100%;
 }
 
-.card__img{
+.card__img {
   object-fit: cover;
   object-position: center;
   transition: scale .4s;
+  min-height: 300px;
 }
 
 .card__shadow{
