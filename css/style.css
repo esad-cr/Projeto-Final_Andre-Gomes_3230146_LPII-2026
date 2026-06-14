@@ -982,7 +982,7 @@ html {
   }
   .card__article {
     height: 500px !important;
-    flex: 1 ;
+    flex: 1 !important;
   }
   .card__data {
     opacity: 0;
