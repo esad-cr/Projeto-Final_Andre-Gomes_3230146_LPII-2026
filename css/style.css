@@ -955,7 +955,7 @@ html {
 }
 
 .card__article:hover {
-  flex: 5 !important;
+  flex: 7 !important;
 }
 
 .card__article:hover .card__data {
