@@ -1036,17 +1036,20 @@ html {
   width: 1000px;
   height: auto;
   margin: 70px;
+  border-radius: 3rem;
 }
 
 .TamanhoVideo > img{
   width: 1000px;
   height: auto;
   margin: 70px;
+  border-radius: 3rem;
 }
 
 .WorkPageImage {
   width: 700px;
   height: auto;
+  border-radius: 3rem;
 }
 .flexWorks {
   display: flex;
