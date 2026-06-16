@@ -63,7 +63,7 @@
         </header>
         <main id="mainContent" class="pageWidth">
             <h1>Contacts</h1>
-            <div class="flexHex">
+            <div class="flexHex SpacingTopXXL">
               <a href="https://www.instagram.com/psi_fann/" rel="noopener noreferrer">
               <article class="Hex_C flex ">
                   <img class="Icons_card_rotate" src="Imagens/SVG_ICONS/instagram-logo.svg" alt="instagram-logo"/>
@@ -99,10 +99,18 @@
               </a>
             </div>
           </main>   
-          <footer id="mainFooter" class="pageWidth SpacingTopXL text_center">
+          <footer id="mainFooter" class="pageWidth SpacingTopXXL text_center">
             <p>&copy; All Rights Reserved <b>|</b> 2026 Final Project</p>
           </footer>
-
+          <svg style="display:none">
+            <filter id="round">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur"/>
+                <feColorMatrix in="blur" mode="matrix" 
+                values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" 
+                result="round"/>
+                <feComposite in="SourceGraphic" in2="round" operator="atop"/>
+            </filter>
+            </svg>
           <script src="js/script.js"></script>
     </body>
 </html>
